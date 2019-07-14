@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { JwtService } from './core/service/jwt.service';
 import { ApiService } from './core/service/api.service';
+import { UserService } from './core/service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -21,5 +22,8 @@ rowData = [
     { make: 'Ford', model: 'Mondeo', price: 32000 },
     { make: 'Porsche', model: 'Boxter', price: 72000 }
 ];
-ngOnInit(){}
+constructor(private userService :UserService ){}
+ngOnInit(){
+  this.userService.populate();
+}
 }
