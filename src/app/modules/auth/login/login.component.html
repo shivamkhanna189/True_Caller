@@ -1,9 +1,23 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
-  </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
-  </mat-form-field>
-</form>
+  <div class="row">
+    <div class=" col-md-5 offset-md-4">
+      <div class="login-form">
+          <h1 class="heading">Login Form </h1>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="example-form">
+              <mat-form-field class="example-full-width">
+                <input  type="text" autocomplete="off" matInput placeholder="Username" formControlName="username">
+              </mat-form-field>
+               
+              <mat-form-field class="example-full-width">
+                  <i class="fas fa-key"></i><input type="password" formControlName="password" autocomplete="off" matInput placeholder="Password">
+              </mat-form-field>
+              <div class="example-button-row">
+                  <button type="submit" mat-raised-button color="primary">Submit</button>
+                </div>
+            </form>  
+      </div>
+    </div>
+  </div>
+
+
+
