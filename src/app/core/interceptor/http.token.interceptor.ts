@@ -12,7 +12,10 @@ export class HttpTokenInterceptor implements HttpInterceptor{
         req: HttpRequest<any>,
         next: HttpHandler
       ): Observable<HttpEvent<any>> {
-
+     if (req.headers.has(InterceptorSkipHeader)) {
+            const headers = req.headers.delete(InterceptorSkipHeader);
+            return next.handle(req.clone({ headers }));
+          }
             const headerConfig = {
                 "Content-Type":"application/json",
                 Accept:"application/json"
@@ -22,14 +25,10 @@ export class HttpTokenInterceptor implements HttpInterceptor{
                 headerConfig['token']=`JWT ${token}`
             }
             const request = req.clone({ setHeaders: headerConfig });
-    const started = Date.now();
     return next.handle(request).pipe(
       tap(
         event => {
-          // if (event instanceof HttpResponse) {
-          //   const elapsed = Date.now() - started;
-          //   console.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`);
-          // }
+        
         },
         error => {
           this.handleAuthError(error);
